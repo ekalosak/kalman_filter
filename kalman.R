@@ -10,6 +10,8 @@
 rm(list=ls())
 set.seed(33)
 
+library(ggplot2)
+
 # Set parameters
 const = pi
 Q = 10^(-5)     # process noise
@@ -55,5 +57,29 @@ for(i in 2:nk){
 }
 
 # TODO: plot everything
+pltdf = data.frame(
+                   time=1:nk,
+                   truth=xs,
+                   observations=zs,
+                   prior=xspr,
+                   posterior=xspo
+                   )
+plt = ggplot(pltdf, aes(x=time)) +
+    geom_line(aes(y=truth, color="blue")) + # process
+    geom_point(aes(y=observations, color="red")) + # observations
+    geom_line(aes(y=posterior, color="green")) + # filtered guesses
+    labs(
+         title="Kalman filter of a random constant",
+         x="Time", y="Value"
+         ) +
+    scale_color_manual(
+                       labels=c("Truth", "Observations", "Filter"),
+                       values=c("blue", "red", "green")
+                       )
+
+# TODO: grid with different observation noises and initial guess errors,
+#       test convergence rates and plot histograms for credible bands on those
+#       rates.
+
 # TODO: write blog post about this
 # TODO: track a stock price from this
