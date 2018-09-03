@@ -7,10 +7,13 @@
 # Observation model:
 #   z_k = x_k + v_k             i.e. H = 1
 
-rm(list=ls())
+## @knitr setup
 set.seed(33)
 
 library(ggplot2)
+library(latex2exp)
+
+## @knitr param_simple
 
 # Set parameters
 const = pi
@@ -19,6 +22,8 @@ R = 1/2         # measurement noise
 x0 = rnorm(1, mean=const, sd=Q)
 
 nk = 100 # 100 points indexed by k \in 1:100
+
+## @knitr simulate_simple
 
 # Allocate simulation objects
 xs = matrix(NA, nk, 1)  # Process
@@ -56,7 +61,7 @@ for(i in 2:nk){
     erpo[i] = (1-ks[i])*erpr[i]             # posterior estimate of obsv error
 }
 
-# TODO: plot everything
+## @knitr plot_simple
 pltdf = data.frame(
                    time=1:nk,
                    truth=xs,
@@ -64,18 +69,25 @@ pltdf = data.frame(
                    prior=xspr,
                    posterior=xspo
                    )
-plt = ggplot(pltdf, aes(x=time)) +
+plt_simple = ggplot(pltdf, aes(x=time)) +
     geom_line(aes(y=truth, color="blue")) + # process
     geom_point(aes(y=observations, color="red")) + # observations
     geom_line(aes(y=posterior, color="green")) + # filtered guesses
     labs(
-         title="Kalman filter of a random constant",
+         title=paste("Kalman filter of a noisy constant,", const),
          x="Time", y="Value"
-         ) +
-    scale_color_manual(
-                       labels=c("Truth", "Observations", "Filter"),
-                       values=c("blue", "red", "green")
-                       )
+         ) # +
+    # scale_color_manual(
+    #                    labels=c("Truth", "Observations", "Filter"),
+    #                    # values=c("Truth"="blue",
+    #                    #          "Observations"="red",
+    #                    #          "Filter"="green")
+    #                    values=c("blue", "red", "green")
+    #                    )
+
+plt_simple
+
+## @knitr the_rest
 
 # TODO: grid with different observation noises and initial guess errors,
 #       test convergence rates and plot histograms for credible bands on those
