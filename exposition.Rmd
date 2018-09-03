@@ -1,0 +1,55 @@
+---
+title: "Kalman Filter"
+author:
+- Eric Kalosa-Kenyon
+date: "`r format(Sys.time(), '%d %B %Y')`"
+
+abstract: I'll run you through the basics and some extensions on both the theory of the Kalman Filter and its implementation in a simple, readable R script
+
+output:
+  html_document:
+    toc: yes
+---
+
+```{r message=F, echo=F}
+rm(list=ls())
+library("knitr")
+read_chunk("./kalman.R")
+```
+
+```{r setup, echo=F}
+```
+
+# Introduction
+The Kalman Filter (KF) is a method for extracting a signal from noisy
+observations. Let an iterative linear process
+$X_K=\{X_k | k \in [1..K] \subset \mathbf{N} \}$ be defined as follows:
+
+$$
+X_k = \Phi X_{k-1} + w_k
+Z_k = H X_k + v_k
+$$
+
+# Simple example
+The simplest example is to filter a constant out of noisy observations. In the
+notation introduced above, $x_k\in\mathbf{R}^1$, $\Phi=1$, $w_k\aprox 0$,
+$H=1$, and $V_K~WN(0,\sigma^2)$.
+
+## Parameterization
+```{r param_simple}
+```
+
+## Running the simulation
+```{r simulate_simple}
+```
+
+## How does it look?
+```{r plot_simple, echo=F}
+```
+
+## Performance profile
+TODO
+
+# Sources
+1. Tony Lacey; "Chapter 11: Tutorial: The Kalman Filter"
+2. Welch & Bishop; "An Introduction to the Kalman Filter"
