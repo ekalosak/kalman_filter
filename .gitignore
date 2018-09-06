@@ -2,3 +2,8 @@
 *.swp
 
 *.html
+
+.DS_Store
+
+*.csv
+*.txt
