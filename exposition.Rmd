@@ -30,10 +30,31 @@ X_k = \Phi X_{k-1} + w_k
 Z_k = H X_k + v_k
 $$
 
+## Filtration method
+Using the model of a process defined above, we have a conception of how nature
+works. That doesn't give us de facto a method to extract estimates from the
+model - this is where the Kalman Filter comes in. It's a method for extracting
+estimates in this context.
+
+## Derivation details
+TODO
+
 # Simple example
 The simplest example is to filter a constant out of noisy observations. In the
 notation introduced above, $x_k\in\mathbf{R}^1$, $\Phi=1$, $w_k\aprox 0$,
-$H=1$, and $V_K~WN(0,\sigma^2)$.
+$H=1$, and $V_K \sim WN(0,\sigma^2)$. That is:
+
+$$
+x_k = x_{k-1}
+Z_k = x_k + v_k
+$$
+
+We're trying to extimate $x_k$. Identically, we could define this problem as
+finding $\mu$ from the process $Z_K$:
+
+$$
+Z_K \sim WN(\mu, I_K\sigma^2)
+$$
 
 ## Parameterization
 ```{r param_simple}
