@@ -69,21 +69,20 @@ pltdf = data.frame(
                    prior=xspr,
                    posterior=xspo
                    )
+
+sz = 1.5
 plt_simple = ggplot(pltdf, aes(x=time)) +
-    geom_line(aes(y=truth, color="blue")) + # process
-    geom_point(aes(y=observations, color="red")) + # observations
-    geom_line(aes(y=posterior, color="green")) + # filtered guesses
+    geom_line(aes(y=truth, color="blue"), size=sz) + # process
+    geom_point(aes(y=observations, color="red"), alpha=0.6) + # observations
+    geom_line(aes(y=posterior, color="green"), alpha=0.7, size=sz) + # filtered
     labs(
          title=paste("Kalman filter of a noisy constant,", const),
-         x="Time", y="Value"
-         ) # +
-    # scale_color_manual(
-    #                    labels=c("Truth", "Observations", "Filter"),
-    #                    # values=c("Truth"="blue",
-    #                    #          "Observations"="red",
-    #                    #          "Filter"="green")
-    #                    values=c("blue", "red", "green")
-    #                    )
+         x="Time", y="Value", color=""
+         ) +
+    scale_color_manual(
+                       labels=c("Truth", "Posterior", "Observation"),
+                       values=c("steelblue", "maroon", "orange")
+                       )
 
 plt_simple
 

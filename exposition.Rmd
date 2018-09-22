@@ -37,7 +37,7 @@ model - this is where the Kalman Filter comes in. It's a method for extracting
 estimates in this context.
 
 ## Derivation details
-TODO
+Coming soon
 
 # Simple example
 The simplest example is to filter a constant out of noisy observations. In the
@@ -69,7 +69,7 @@ $$
 ```
 
 ## Performance profile
-TODO
+Coming soon
 
 # Sources
 1. Tony Lacey; "Chapter 11: Tutorial: The Kalman Filter"
