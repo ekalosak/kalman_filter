@@ -25,9 +25,10 @@ The Kalman Filter (KF) is a method for extracting a signal from noisy
 observations. Let an iterative linear process
 $X_K=\{X_k | k \in [1..K] \subset \mathbf{N} \}$ be defined as follows:
 
+(@basicdef)
 $$
-X_k = \Phi X_{k-1} + w_k
-Z_k = H X_k + v_k
+X_k = \Phi X_{k-1} + W_k \\
+Z_k = H X_k + V_k
 $$
 
 ## Filtration method
@@ -37,13 +38,27 @@ model - this is where the Kalman Filter comes in. It's a method for extracting
 estimates in this context.
 
 ## Derivation details
-Coming soon
+We'll start off with a linear AR(1) process representing the change in
+state as shown in the introductory section's equation (@basicdef). Assume
+$W_k$ is distributed according to a centered normal distribution
+$W \sim N(0, I*\sigma_w^2)$. Further, assume measurements of the state are
+corrupted by measurement noise $V_k$ similarly distributed as
+$V \sim N(0, I*\sigma_v^2)$. Note that the dimension of $X_k$ and $Z_k$ aren't
+necessarily the same - that is, the latent space may have a different dimension
+than the observation space e.g. visual observations in 2D from a dynamic system
+living in 4D, 3 satellite signals each in 1D witnessing a state in 4D, etc.
+
+Anyway, more math: we're interested in recovering the state $X_k$ as accurately
+as possible.
+
+TODO
 
 # Simple example
 The simplest example is to filter a constant out of noisy observations. In the
-notation introduced above, $x_k\in\mathbf{R}^1$, $\Phi=1$, $w_k\aprox 0$,
+notation introduced above, $x_k\in\mathbf{R}^1$, $\Phi=1$, $w_k\approx 0$,
 $H=1$, and $V_K \sim WN(0,\sigma^2)$. That is:
 
+(@simpleex)
 $$
 x_k = x_{k-1}
 Z_k = x_k + v_k
@@ -65,12 +80,22 @@ $$
 ```
 
 ## How does it look?
+### The filter itself
 ```{r plot_simple, echo=F}
 ```
 
-## Performance profile
+### The error profile
+```{r plot_error_profile_1d, echo=F}
+```
+  
+It appears that the error becomes bounded extremely quickly, within 10 or so
+observations.
+
+# Adding some movement
+
+# 2D Filter
 Coming soon
 
 # Sources
-1. Tony Lacey; "Chapter 11: Tutorial: The Kalman Filter"
-2. Welch & Bishop; "An Introduction to the Kalman Filter"
+1. Tony Lacey; "[Chapter 11: Tutorial: The Kalman Filter](http://web.mit.edu/kirtley/kirtley/binlustuff/literature/control/Kalman%20filter.pdf)"; MIT
+2. Welch & Bishop (2006); "[An Introduction to the Kalman Filter](https://courses.cs.washington.edu/courses/cse571/03wi/notes/welch-bishop-tutorial.pdf)"; UNC Chapel Hill
