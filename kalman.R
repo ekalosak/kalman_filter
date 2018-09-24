@@ -86,6 +86,14 @@ plt_simple = ggplot(pltdf, aes(x=time)) +
 
 plt_simple
 
+## @knitr plot_error_profile_1d
+pltdf$err = with(pltdf, sqrt((truth-posterior)^2))
+
+plt_simple_error = ggplot(pltdf, aes(x=time, y=err)) +
+    geom_col(fill="goldenrod3") +
+    labs(title=paste("Error of posterior"), x="Time", y="RSE")
+plt_simple_error
+
 ## @knitr the_rest
 
 # TODO: grid with different observation noises and initial guess errors,
